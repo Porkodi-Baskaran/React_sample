@@ -1,15 +1,51 @@
 import Footer from './Footer';
 import Content from './Content';
 import Header from './Header';
+import { useState } from 'react';
 
 
 function App() {
+  const [items, setItems]= useState(
+          [
+              { id:1,
+              checked: true,
+              item: "Practice coding"
+              },
+              { id:2,
+                  checked: false,
+                  item: "Go for walking"
+              },
+              { id:3,
+              checked: false,
+              item: "Do meditation"
+              }
+          ]);
+     
+      const handleCheck=(id) => {
+          const listItems= items.map((item) =>
+          item.id===id ? {...item,checked:!item.checked} :item)
+          setItems(listItems);
+          localStorage.setItem("todo-list",JSON.stringify(listItems));
+      }
+  
+      const handleDelete = (id)=> {
+          const listItems= items.filter((item) =>
+              item.id!==id)
+              setItems(listItems);
+              localStorage.setItem("todo-list",JSON.stringify(listItems));
+      }
 
   return (
     <div className="App">
-      <Header title="Porkodi Baskaran List"/>
-      <Content />
-      <Footer />
+      <Header title="To do List"/>
+      <Content 
+        items ={items}  
+        handleCheck ={handleCheck}
+        handleDelete={handleDelete}
+      />
+      <Footer
+      length = {items.length}
+      />
     </div>
   )
 } 

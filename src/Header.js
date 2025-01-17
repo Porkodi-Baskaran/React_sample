@@ -8,7 +8,8 @@ const Header = ({title}) => {
   )
 }
 
-Header.defaultProps= {
+//default header is given when nothing is passed as title
+Header.defaultProps = {
     title: "To do list"
 }
 export default Header
